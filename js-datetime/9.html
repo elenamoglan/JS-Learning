@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Countdown Timer</title>
+</head>
+
+<body>
+  <form>
+    Days:
+    <input type="text" id="days" name="days" value="0" size="3" maxlength="3" />
+    &nbsp; &nbsp; Hours:
+    <input type="text" id="hrs" name="hrs" value="0" size="3" maxlength="3" />
+    &nbsp; &nbsp; Minutes:
+    <input type="text" id="mnts" name="mnts" value="0" size="2" maxlength="2" /><br /><br />
+    <input type="button" id="btnct" value="START" onclick="countdownTimer()" />
+  </form>
+  <br />
+  Countdown Timer: &nbsp; D: <span id="showdays">00</span>&nbsp;H:&nbsp;<span id="showhrs">00</span>&nbsp;M:&nbsp;<span
+    id="showmnts">00</span>
+  <p style="visibility: hidden">Time is over</p>
+  <script>
+    let ctdays = 0;
+    let cthrs = 0;
+    let ctmnts = 0;
+    let ctsecs = 59;
+    let start = 0;
+    const timeOver = document.querySelector("p");
+
+    function countdownTimer() {
+      // if $start is 0, and form fields exists, gets data for days, hours and minutes and sets $start to 1
+      if (
+        start == 0 &&
+        document.getElementById("days") &&
+        document.getElementById("hrs") &&
+        document.getElementById("mnts")
+      ) {
+        // makes sure the script uses integer numbers
+        ctdays = parseInt(document.getElementById("days").value) + 0;
+        cthrs = parseInt(document.getElementById("hrs").value) + 0;
+        ctmnts = parseInt(document.getElementById("mnts").value) + 0;
+
+        // if data not a number, sets the value to 0
+        if (isNaN(ctdays)) ctdays = 0;
+        if (isNaN(cthrs)) cthrs = 0;
+        if (isNaN(ctmnts)) ctsecs = 0;
+
+        // rewrite data in form fields to be sure that the fields for days, hours and minutes integer number
+        document.getElementById("days").value = ctdays;
+        document.getElementById("hrs").value = cthrs;
+        document.getElementById("mnts").value = ctmnts;
+        start = 1;
+        document.getElementById("btnct").setAttribute("disabled", "disabled"); // disable the button
+        timeOver.style.visibility = "hidden";
+
+      }
+
+      // if days, hours and minutes, sets $start to 0, and return false
+      if (ctdays == 0 && cthrs == 0 && ctmnts == 0) {
+        start = 0;
+        document.getElementById("btnct").removeAttribute("disabled"); // remove "disabled" to enable the button
+        timeOver.style.visibility = "visible";
+
+      } else {
+        // decrease seconds, and decrease minutes if seconds reach to 0
+        ctsecs--;
+        if (ctsecs < 0) {
+          if (ctmnts > 0) {
+            ctsecs = 59;
+            ctmnts--;
+          } else if (cthrs > 0) {
+            ctmnts = 59;
+            cthrs--;
+          } else if (ctdays > 0) {
+            cthrs = 23;
+            ctdays--;
+          } else {
+            ctdays = 0;
+            cthrs = 0;
+            ctmnts = 0;
+          }
+        }
+      }
+
+      // display the time in page, and auto-calls this function after 1 seccond
+      document.getElementById("showdays").innerHTML = ctdays;
+      document.getElementById("showhrs").innerHTML = cthrs;
+      document.getElementById("showmnts").innerHTML = ctmnts;
+      setTimeout("countdownTimer()", 1000);
+    }
+  </script>
+</body>
+
+</html>
