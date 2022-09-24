@@ -6,24 +6,18 @@ input.disabled = true;
 input.value = 0;
 minus.disabled = true;
 
-plus.onclick = () => {
-  if (input.value <= 9 && input.value >= 0) {
-    input.value++;
-    if (input.value == 9) {
-      plus.disabled = true;
-    } else {
-      minus.disabled = false;
-    }
+plus.addEventListener("click", () => {
+  input.value++;
+  minus.disabled = false;
+  if (input.value >= 9) {
+    plus.disabled = true;
   }
-};
+});
 
-minus.onclick = () => {
-  if (input.value <= 9 && input.value >= 0) {
-    input.value--;
-    if (input.value == 0) {
-      minus.disabled = true;
-    } else {
-      plus.disabled = false;
-    }
+minus.addEventListener("click", () => {
+  input.value--;
+  plus.disabled = false;
+  if (input.value <= 0) {
+    minus.disabled = true;
   }
-};
+});
