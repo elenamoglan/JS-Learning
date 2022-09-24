@@ -1,5 +1,3 @@
-function ready() {
+document.addEventListener("DOMContentLoaded", () => {
   document.body.style.backgroundColor = "red";
-}
-
-document.addEventListener("DOMContentLoaded", ready);
+});
