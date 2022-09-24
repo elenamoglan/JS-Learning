@@ -2,12 +2,12 @@ const list = document.getElementById("list");
 let i = 1;
 
 createList = setInterval(() => {
-  let item = document.createElement("li");
+  const item = document.createElement("li");
 
   item.textContent = `Элемент ${i}`;
   list.appendChild(item);
 
-  if (i % 2 == 0) {
+  if (i % 2 === 0) {
     item.style.backgroundColor = "violet";
   } else {
     item.style.backgroundColor = "green";
