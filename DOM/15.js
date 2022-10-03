@@ -1,6 +1,6 @@
 const input = document.getElementById("input");
 
-input.addEventListener("focusout", () => {
+input.addEventListener("blur", () => {
   if (isNaN(input.value)) {
     input.value = 0;
   }
