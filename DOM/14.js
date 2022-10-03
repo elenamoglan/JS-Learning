@@ -1,7 +1,7 @@
 const parentOfChild = document.getElementById("parent");
 const child = document.getElementById("child");
-const delete_button = document.getElementById("btn");
+const deleteButton = document.getElementById("btn");
 
-delete_button.addEventListener("click", () => {
+deleteButton.addEventListener("click", () => {
   parentOfChild.removeChild(child);
 });
