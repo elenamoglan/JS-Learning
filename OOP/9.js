@@ -28,7 +28,7 @@ class FormElement {
         rule += this.rules[elem];
       }
 
-      element.setAttribute("rules", value);
+      element.setAttribute("rules", rule);
     }
 
     return element;
