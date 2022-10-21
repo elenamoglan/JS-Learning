@@ -1,5 +1,5 @@
 const form = document.createElement("form");
-document.getElementsByTagName("body")[0].appendChild(form);
+document.body.appendChild(form);
 
 class FormElement {
   constructor(id, type, placeholder, value, rules) {
@@ -38,13 +38,30 @@ class FormElement {
     return this.value;
   }
 
-  validate() { }
+  validate() {}
 }
 
-const formElementOne = new FormElement("name", "text", "Имя", "John", ["required"]);
-const formElementTwo = new FormElement("email", "text", "Е-мэйл", "mail@mail.com", ["required", "mail"]);
-const formElementThree = new FormElement("age", "text", "Возраст", "62", ["required", "min:10",]);
-const formElementFour = new FormElement("birthdate", "text", "Дата рождения", "01.01.1970", ["required", "date"]);
+const formElementOne = new FormElement("name", "text", "Имя", "John", [
+  "required",
+]);
+const formElementTwo = new FormElement(
+  "email",
+  "text",
+  "Е-мэйл",
+  "mail@mail.com",
+  ["required", "mail"]
+);
+const formElementThree = new FormElement("age", "text", "Возраст", "62", [
+  "required",
+  "min:10",
+]);
+const formElementFour = new FormElement(
+  "birthdate",
+  "text",
+  "Дата рождения",
+  "01.01.1970",
+  ["required", "date"]
+);
 const formElementFive = new FormElement("submit");
 
 form.appendChild(formElementOne.create("input"));
