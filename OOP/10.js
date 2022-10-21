@@ -40,21 +40,12 @@ class FormElement {
 
   validate(inputId) {
     const input = document.getElementById(inputId);
-    if (inputId === "age") {
-      if (input.value && input.value >= 10) {
-        return true;
-      } else {
-        return false;
-      }
-    } else if (inputId === "name") {
-      if (input.value) {
-        return true;
-      } else {
-        return false;
-      }
-    } else {
-      return true;
-    }
+    const rules = {
+      age: input?.value >= 10,
+      name: !!input.value,
+    };
+
+    return rules[inputId] || true;
   }
 }
 
