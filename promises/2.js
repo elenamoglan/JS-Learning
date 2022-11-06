@@ -2,8 +2,7 @@ async function serverResponse(result) {
   let promise = new Promise(function (resolve, reject) {
     setTimeout(() => resolve("Response from server"), 2000);
   });
-  const response = await promise;
-  result.innerHTML = response;
+  result.innerHTML = await promise;
 }
 
 function userRequest() {
