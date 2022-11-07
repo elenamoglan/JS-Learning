@@ -1,14 +1,17 @@
 async function serverResponse(result) {
-  let promise = new Promise(function (resolve, reject) {
+  return new Promise(function (resolve, reject) {
     setTimeout(() => resolve("Response from server"), 2000);
   });
-  result.innerHTML = await promise;
 }
 
-function userRequest() {
-  const result = document.getElementById("result");
-  result.innerHTML = "Waiting for response";
-  serverResponse(result);
+async function userRequest() {
+  try {
+    const result = document.getElementById("result");
+    result.innerHTML = "Waiting for response";
+    result.innerHTML = await serverResponse(result);
+  } catch (error) {
+    result.innerHTML = error;
+  }
 }
 
 userRequest();
