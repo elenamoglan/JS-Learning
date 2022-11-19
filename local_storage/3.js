@@ -6,8 +6,6 @@ let form = document.querySelector("#form"); // select form
 let formElements = form.elements;
 const boxes = document.getElementsByName("language").length;
 
-console.log(formElements);
-
 const getFormData = () => {
   let data = { [formIdentifier]: {} };
 
@@ -52,6 +50,7 @@ function populateForm() {
             const checked = JSON.parse(
               localStorage.getItem("checkbox" + String(i))
             );
+            
             document.getElementById(String(i)).checked = checked;
           }
         }
