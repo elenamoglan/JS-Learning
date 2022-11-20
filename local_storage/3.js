@@ -1,17 +1,17 @@
-const url = location.href; //  href for the page
-const formIdentifier = `${url} form`; // Identifier used to identify the form
-const saveButton = document.getElementById("saveButton"); // select save button
-const clearButton = document.getElementById("clearButton"); // select save button
-let form = document.querySelector("#form"); // select form
-let formElements = form.elements;
-const boxes = document.getElementsByName("language").length;
+const saveButton = document.getElementById("saveButton");
+const clearButton = document.getElementById("clearButton");
+const form = document.querySelector("#form");
+const formElements = form.elements;
+console.log(formElements);
+const boxes = document.getElementsByName("language");
+console.log(boxes);
 
 const getFormData = () => {
-  let data = { [formIdentifier]: {} };
+  const data = {};
 
   for (const element of formElements) {
     if (element.name.length > 0) {
-      data[formIdentifier][element.name] = element.value;
+      data[element.name] = element.value;
     }
   }
 
@@ -21,11 +21,8 @@ const getFormData = () => {
 saveButton.addEventListener("click", (event) => {
   event.preventDefault();
   data = getFormData();
-  localStorage.setItem(formIdentifier, JSON.stringify(data[formIdentifier]));
-  for (let i = 1; i <= boxes; i++) {
-    const checkbox = document.getElementById(String(i));
-    localStorage.setItem("checkbox" + String(i), checkbox.checked);
-  }
+  data.boxes = [...boxes].map((box) => box.checked);
+  localStorage.setItem("data", JSON.stringify(data));
 });
 
 clearButton.addEventListener("click", (event) => {
@@ -37,23 +34,17 @@ clearButton.addEventListener("click", (event) => {
 });
 
 function populateForm() {
-  if (localStorage.key(formIdentifier)) {
-    const savedData = JSON.parse(localStorage.getItem(formIdentifier));
+  if (localStorage.key("data")) {
+    const savedData = JSON.parse(localStorage.getItem("data"));
 
     for (const element of formElements) {
       if (element.name in savedData) {
         element.value = savedData[element.name];
       }
       if (element.name === "language") {
-        for (let i = 1; i <= boxes; i++) {
-          if (localStorage.length > 0) {
-            const checked = JSON.parse(
-              localStorage.getItem("checkbox" + String(i))
-            );
-            
-            document.getElementById(String(i)).checked = checked;
-          }
-        }
+        boxes.forEach((box, index) => {
+          box.checked = savedData?.boxes?.[index];
+        });
       }
     }
   }
